@@ -1,0 +1,30 @@
+.dashboard-layout {
+    display: grid;
+    grid-template-columns: 240px 1fr 300px;
+    grid-template-rows: 1fr;
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+    background-color: var(--bg-dark);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    /* Separator from navbar */
+    overflow: hidden;
+}
+
+.dashboard-layout>* {
+    min-height: 0;
+}
+
+@media (max-width: 1024px) {
+    .dashboard-layout {
+        grid-template-columns: 200px 1fr;
+        /* Hide AI panel on smaller screens for now */
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard-layout {
+        grid-template-columns: 1fr;
+        overflow-y: auto;
+    }
+}

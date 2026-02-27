@@ -1,0 +1,30 @@
+:root {
+  --bg-dark: #121915;
+  --bg-card: #1E2722;
+  --text-primary: #F0F4F2;
+  --text-secondary: #9BAE9D;
+  --accent-mint: #2EED94;
+  --accent-mint-hover: #1DD27F;
+  --accent-error: #E57373;
+  --border-light: rgba(255, 255, 255, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  color: var(--text-primary);
+}

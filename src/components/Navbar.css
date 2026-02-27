@@ -1,0 +1,226 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 4rem;
+    background-color: transparent;
+}
+
+.navbar-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    cursor: pointer;
+}
+
+.navbar-links {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+}
+
+.navbar-links a {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: opacity 0.2s;
+}
+
+.navbar-links a:hover {
+    opacity: 0.8;
+}
+
+.btn-login {
+    background: transparent;
+    color: var(--accent-mint);
+    border: 1px solid rgba(46, 237, 148, 0.3);
+    padding: 0.5rem 1.5rem;
+    border-radius: 20px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-login:hover {
+    background: rgba(46, 237, 148, 0.1);
+    border-color: var(--accent-mint);
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.user-dosha {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+}
+
+.user-name {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.btn-logout {
+    background: transparent;
+    color: var(--text-secondary);
+    border: none;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: color 0.2s;
+    padding: 0.5rem;
+}
+
+.btn-logout:hover {
+    color: var(--accent-error);
+}
+
+/* Authenticated Dashboard Navbar */
+.dashboard-navbar {
+    padding: 1rem 2rem;
+    background-color: var(--bg-dark);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.nav-search-bar {
+    display: flex;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 24px;
+    padding: 0.5rem 1rem;
+    width: 340px;
+    gap: 0.75rem;
+}
+
+.nav-search-bar .search-icon {
+    color: var(--text-secondary);
+}
+
+.nav-search-bar input {
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    width: 100%;
+    outline: none;
+}
+
+.nav-search-bar input::placeholder {
+    color: var(--text-secondary);
+}
+
+.dashboard-nav-links {
+    display: flex;
+    gap: 2.5rem;
+    align-items: center;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.dashboard-nav-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.dashboard-nav-links a:hover {
+    color: var(--text-primary);
+}
+
+.dashboard-nav-links a.active-link {
+    color: var(--accent-mint);
+}
+
+.dashboard-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.icon-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s;
+}
+
+.icon-btn:hover {
+    color: var(--text-primary);
+}
+
+.notification-dot {
+    position: absolute;
+    top: 0px;
+    right: 3px;
+    width: 8px;
+    height: 8px;
+    background-color: var(--accent-error);
+    border-radius: 50%;
+    border: 2px solid var(--bg-dark);
+}
+
+.btn-quick-add {
+    background-color: var(--accent-mint);
+    color: var(--bg-dark);
+    border: none;
+    border-radius: 24px;
+    padding: 0.5rem 1.25rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    align-items: center;
+}
+
+.btn-quick-add:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(46, 237, 148, 0.25);
+}
+
+.profile-wrapper {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color 0.2s;
+}
+
+.profile-wrapper:hover {
+    border-color: var(--accent-mint);
+}
+
+.profile-avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

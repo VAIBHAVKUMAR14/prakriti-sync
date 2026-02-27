@@ -1,0 +1,169 @@
+.hero-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4rem 4rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    min-height: calc(100vh - 80px);
+    gap: 4rem;
+}
+
+.hero-content {
+    flex: 1;
+    max-width: 600px;
+}
+
+.ayurvedic-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.25rem 0.75rem;
+    background: rgba(46, 237, 148, 0.05);
+    border: 1px solid rgba(46, 237, 148, 0.2);
+    border-radius: 20px;
+    color: var(--accent-mint);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    margin-bottom: 2rem;
+}
+
+.ayurvedic-tag .dot {
+    width: 6px;
+    height: 6px;
+    background-color: var(--accent-mint);
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(46, 237, 148, 0.5);
+}
+
+.hero-title {
+    font-size: 4.5rem;
+    line-height: 1.1;
+    margin-bottom: 2rem;
+    letter-spacing: -0.02em;
+}
+
+.highlight-mint {
+    color: var(--accent-mint);
+    font-style: italic;
+}
+
+.hero-subtitle {
+    color: var(--text-secondary);
+    font-size: 1.125rem;
+    line-height: 1.6;
+    margin-bottom: 3rem;
+    max-width: 90%;
+}
+
+.hero-actions {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+}
+
+.btn-primary {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: var(--accent-mint);
+    color: var(--bg-dark);
+    border: none;
+    padding: 1rem 1.75rem;
+    border-radius: 30px;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 4px 14px rgba(46, 237, 148, 0.2);
+}
+
+.btn-primary:hover {
+    background-color: var(--accent-mint-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(46, 237, 148, 0.3);
+}
+
+.btn-secondary {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--border-light);
+    padding: 1rem 1.75rem;
+    border-radius: 30px;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.hero-metrics {
+    display: flex;
+    gap: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-light);
+}
+
+.metric h3 {
+    font-size: 1.75rem;
+    font-weight: 400;
+    margin-bottom: 0.25rem;
+}
+
+.metric p {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+}
+
+.hero-visual {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .hero-section {
+        flex-direction: column;
+        padding: 3rem 2rem;
+        text-align: center;
+        gap: 3rem;
+    }
+
+    .hero-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero-subtitle {
+        max-width: 100%;
+    }
+
+    .hero-title {
+        font-size: 3.5rem;
+    }
+
+    .hero-actions {
+        justify-content: center;
+    }
+
+    .hero-metrics {
+        justify-content: center;
+    }
+
+    .hero-visual {
+        width: 100%;
+        justify-content: center;
+    }
+}
