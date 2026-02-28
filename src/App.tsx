@@ -17,16 +17,11 @@ function AppContent() {
     const [isQuizOpen, setIsQuizOpen] = useState(false);
     const [isLoginOpen, setIsLoginOpen] = useState(false);
     const [isQuickAddOpen, setIsQuickAddOpen] = useState(false);
-    const [events, setEvents] = useState<Event[]>([
-        { id: '1', title: 'Deep Work Session', type: 'Deep Work', durationMinutes: 120, intensity: 'High' },
-        { id: '2', title: 'Team Sync', type: 'Meeting', durationMinutes: 60, intensity: 'High' }
-    ]);
+    const [refreshEventsTrigger, setRefreshEventsTrigger] = useState(0);
+    const [events, setEvents] = useState<Event[]>([]);
 
     const handleResetEvents = () => {
-        setEvents([
-            { id: '1', title: 'Deep Work Session', type: 'Deep Work', durationMinutes: 120, intensity: 'High' },
-            { id: '2', title: 'Team Sync', type: 'Meeting', durationMinutes: 60, intensity: 'High' }
-        ]);
+        setEvents([]);
         console.log("Events Reset secretly!"); // Small feedback for debugging later if needed
     };
 
@@ -40,12 +35,13 @@ function AppContent() {
                     isDashboard={true}
                     onQuickAddClick={() => setIsQuickAddOpen(true)}
                 />
-                <Dashboard events={events} onResetEvents={handleResetEvents} />
+                <Dashboard events={events} onResetEvents={handleResetEvents} refreshEventsTrigger={refreshEventsTrigger} />
 
                 {isQuickAddOpen && (
                     <QuickAddModal
                         onClose={() => setIsQuickAddOpen(false)}
                         setEvents={setEvents}
+                        onEventCreated={() => setRefreshEventsTrigger(prev => prev + 1)}
                     />
                 )}
             </div>

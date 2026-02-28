@@ -4,12 +4,13 @@ import { DoshaType } from './QuizData';
 interface User {
     email: string;
     name: string;
+    googleAccessToken?: string;
 }
 
 interface AuthContextType {
     user: User | null;
     savedDosha: DoshaType | null;
-    login: (email: string, name: string) => void;
+    login: (email: string, name: string, googleAccessToken?: string) => void;
     logout: () => void;
     saveDoshaResult: (dosha: DoshaType) => void;
 }
@@ -33,8 +34,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         }
     }, []);
 
-    const login = (email: string, name: string) => {
-        const newUser = { email, name };
+    const login = (email: string, name: string, googleAccessToken?: string) => {
+        const newUser = { email, name, googleAccessToken };
         setUser(newUser);
         localStorage.setItem('prakriti_user', JSON.stringify(newUser));
     };

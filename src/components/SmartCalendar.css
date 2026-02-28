@@ -120,7 +120,7 @@
 
 .days-header-row {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(7, 1fr);
     height: 60px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
@@ -148,7 +148,7 @@
 /* Events Area */
 .events-grid {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(7, 1fr);
     /* Each row is 30 mins, 40px high. Start at 00:00 logically for easy math, but we clipped it */
     grid-template-rows: repeat(48, 40px);
     /* 24 hours * 2 halves */

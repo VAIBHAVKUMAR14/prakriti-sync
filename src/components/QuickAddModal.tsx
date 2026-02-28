@@ -1,31 +1,86 @@
 import { useState, FormEvent } from 'react';
+import { useAuth } from '../AuthContext';
 import { Event } from '../utils/calculateBurnout';
 import './QuickAddModal.css';
 
 interface Props {
     onClose: () => void;
     setEvents: React.Dispatch<React.SetStateAction<Event[]>>;
+    onEventCreated: () => void;
 }
 
-export function QuickAddModal({ onClose, setEvents }: Props) {
+export function QuickAddModal({ onClose, setEvents, onEventCreated }: Props) {
     const [title, setTitle] = useState('');
     const [type, setType] = useState('Deep Work');
     const [durationMinutes, setDurationMinutes] = useState('60');
     const [intensity, setIntensity] = useState<'Low' | 'Medium' | 'High'>('Medium');
 
-    const handleSubmit = (e: FormEvent) => {
+    const now = new Date();
+    // Format to local YYYY-MM-DDTHH:mm for datetime-local input
+    const offset = now.getTimezoneOffset() * 60000;
+    const localISOTime = (new Date(now.getTime() - offset)).toISOString().slice(0, 16);
+    const [startDateTime, setStartDateTime] = useState(localISOTime);
+
+    const { user } = useAuth();
+    const token = user?.googleAccessToken;
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
+    const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
+
+        const duration = Number(durationMinutes) || 60;
 
         const newEvent: Event = {
             id: Date.now().toString(),
             title: title || 'Untitled Event',
             type,
-            durationMinutes: Number(durationMinutes) || 60,
-            intensity
+            durationMinutes: duration,
+            intensity,
+            timestamp: startDateTime
         };
 
         setEvents((prev) => [...prev, newEvent]);
-        onClose();
+
+        if (token) {
+            setIsSubmitting(true);
+            try {
+                const startTime = new Date(startDateTime);
+                const endTime = new Date(startTime.getTime() + duration * 60000);
+
+                const response = await fetch('https://www.googleapis.com/calendar/v3/calendars/primary/events', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        summary: newEvent.title,
+                        description: `Type: ${newEvent.type}\nIntensity: ${newEvent.intensity}`,
+                        start: {
+                            dateTime: startTime.toISOString(),
+                            timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone
+                        },
+                        end: {
+                            dateTime: endTime.toISOString(),
+                            timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone
+                        }
+                    })
+                });
+
+                if (!response.ok) {
+                    console.error("Failed to create Google Calendar event", await response.text());
+                } else {
+                    onEventCreated();
+                }
+            } catch (err) {
+                console.error("Error creating event:", err);
+            } finally {
+                setIsSubmitting(false);
+                onClose();
+            }
+        } else {
+            onClose();
+        }
     };
 
     return (
@@ -45,6 +100,17 @@ export function QuickAddModal({ onClose, setEvents }: Props) {
                             placeholder="e.g. Design Sync"
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
+                            required
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label>Start Date & Time</label>
+                        <input
+                            type="datetime-local"
+                            className="modal-input"
+                            value={startDateTime}
+                            onChange={(e) => setStartDateTime(e.target.value)}
                             required
                         />
                     </div>
@@ -89,8 +155,10 @@ export function QuickAddModal({ onClose, setEvents }: Props) {
                     </div>
 
                     <div className="modal-actions">
-                        <button type="button" className="btn-cancel" onClick={onClose}>Cancel</button>
-                        <button type="submit" className="btn-submit">Save Event</button>
+                        <button type="button" className="btn-cancel" onClick={onClose} disabled={isSubmitting}>Cancel</button>
+                        <button type="submit" className="btn-submit" disabled={isSubmitting}>
+                            {isSubmitting ? 'Saving...' : 'Save Event'}
+                        </button>
                     </div>
                 </form>
             </div>

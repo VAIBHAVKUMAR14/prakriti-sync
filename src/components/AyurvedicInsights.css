@@ -1,0 +1,147 @@
+.insights-dashboard {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow-y: auto;
+    padding: 2.5rem 3rem;
+    background-color: var(--bg-dashboard);
+}
+
+.insights-header {
+    margin-bottom: 2.5rem;
+}
+
+.insights-header h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+}
+
+.insights-header p {
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+}
+
+.insights-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+    align-items: stretch;
+}
+
+/* Base Card Styling */
+.insight-card-main {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 24px;
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    backdrop-filter: blur(10px);
+}
+
+.insight-card-main:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
+}
+
+/* Card Header */
+.card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+}
+
+.card-title-group {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.card-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    font-size: 1rem;
+}
+
+.card-icon.alert {
+    background: rgba(239, 68, 68, 0.15);
+    color: #EF4444;
+    /* Terracotta */
+}
+
+.card-icon.ai {
+    background: rgba(16, 185, 129, 0.15);
+    color: #10B981;
+    /* Neon Sage */
+}
+
+.insight-card-main h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Circular Chart Styles */
+.circular-chart {
+    display: block;
+    margin: 0 auto;
+    max-width: 80px;
+    max-height: 80px;
+}
+
+.circle-bg {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.05);
+    stroke-width: 3.8;
+}
+
+.circle {
+    fill: none;
+    stroke-width: 3.8;
+    stroke-linecap: round;
+    transition: stroke-dasharray 1s ease-out;
+}
+
+.circular-chart.amber .circle {
+    stroke: #ffb300;
+}
+
+.percentage {
+    fill: var(--text-primary);
+    font-family: inherit;
+    font-size: 0.5rem;
+    font-weight: 700;
+    text-anchor: middle;
+}
+
+/* Specific Card Theming Overrides */
+
+.ai-rec-card {
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    box-shadow: inset 0 0 40px -20px rgba(16, 185, 129, 0.15), 0 10px 30px -10px rgba(16, 185, 129, 0.1);
+    background: linear-gradient(180deg, rgba(16, 185, 129, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+}
+
+.drainer-card {
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    background: linear-gradient(180deg, rgba(239, 68, 68, 0.03) 0%, rgba(255, 255, 255, 0.02) 100%);
+}
+
+.alignment-card {
+    border: 1px solid rgba(255, 179, 0, 0.2);
+    /* Amber glow */
+}

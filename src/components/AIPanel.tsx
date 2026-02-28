@@ -1,5 +1,5 @@
 import { useAuth } from '../AuthContext';
-import { getBurnoutThreshold, Event } from '../utils/calculateBurnout';
+import { calculateScore, Event } from '../utils/calculateBurnout';
 import './AIPanel.css';
 
 interface Props {
@@ -10,7 +10,7 @@ export function AIPanel({ events }: Props) {
     const { savedDosha } = useAuth();
     const userDosha = savedDosha || 'Vata';
 
-    const burnoutData = getBurnoutThreshold(events, userDosha, 5);
+    const burnoutData = calculateScore(events, userDosha);
 
     return (
         <aside className="ai-panel">
@@ -29,19 +29,15 @@ export function AIPanel({ events }: Props) {
             <div className="threshold-section">
                 <div className="threshold-header">
                     <h4>Burnout Threshold</h4>
-                    <span
-                        className="threshold-value"
-                        style={{ color: burnoutData.percentage >= 75 ? '#f44336' : 'var(--accent-mint)' }}
-                    >
+                    <span className={`threshold-value ${burnoutData.textColor}`}>
                         {burnoutData.percentage}%
                     </span>
                 </div>
                 <div className="burnout-progress-container">
                     <div
-                        className="burnout-progress-fill"
+                        className={`burnout-progress-fill ${burnoutData.uiColor}`}
                         style={{
-                            width: `${burnoutData.percentage}%`,
-                            backgroundColor: burnoutData.uiColor
+                            width: `${burnoutData.percentage}%`
                         }}
                     />
                 </div>
