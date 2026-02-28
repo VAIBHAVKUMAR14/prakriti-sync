@@ -11,9 +11,24 @@ interface Props {
 export function Sidebar({ activeTab, onTabChange, onSecretReset }: Props) {
     const { user, savedDosha } = useAuth();
 
-    // Simulate current month dates for mini calendar
+    // Dynamically calculate the current week's days
+    const today = new Date();
+    const currentMonthYear = today.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+    const currentDayOfWeek = today.getDay(); // 0 (Sun) - 6 (Sat)
+
+    // Generate dates for Sun-Sat of the current week
+    const startOfWeek = new Date(today);
+    startOfWeek.setDate(today.getDate() - currentDayOfWeek);
+
+    const weekDates: number[] = [];
+    for (let i = 0; i < 7; i++) {
+        const d = new Date(startOfWeek);
+        d.setDate(startOfWeek.getDate() + i);
+        weekDates.push(d.getDate());
+    }
+
     const days = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
-    const dates = [1, 2, 3, 4, 5, 6, 7];
+    const activeDateNum = today.getDate();
 
     return (
         <aside className="sidebar">
@@ -67,7 +82,7 @@ export function Sidebar({ activeTab, onTabChange, onSecretReset }: Props) {
 
             <div className="mini-calendar-section">
                 <div className="mini-calendar-header">
-                    <h4>October 2023</h4>
+                    <h4>{currentMonthYear}</h4>
                     <div className="cal-nav">
                         <span>≺</span>
                         <span>≻</span>
@@ -75,8 +90,8 @@ export function Sidebar({ activeTab, onTabChange, onSecretReset }: Props) {
                 </div>
                 <div className="mini-calendar-grid">
                     {days.map(d => <div key={d} className="cal-day-label">{d}</div>)}
-                    {dates.map((d) => (
-                        <div key={d} className={`cal-date ${d === 5 ? 'active-date' : ''}`}>
+                    {weekDates.map((d, index) => (
+                        <div key={index} className={`cal-date ${d === activeDateNum ? 'active-date' : ''}`}>
                             {d}
                         </div>
                     ))}

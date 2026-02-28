@@ -1,5 +1,5 @@
 import { useAuth } from '../AuthContext';
-import { calculateScore, Event } from '../utils/calculateBurnout';
+import { calculateScore, generateInsights, Event } from '../utils/calculateBurnout';
 import './AIPanel.css';
 
 interface Props {
@@ -11,6 +11,7 @@ export function AIPanel({ events }: Props) {
     const userDosha = savedDosha || 'Vata';
 
     const burnoutData = calculateScore(events, userDosha);
+    const insights = generateInsights(events, userDosha);
 
     return (
         <aside className="ai-panel">
@@ -23,7 +24,7 @@ export function AIPanel({ events }: Props) {
             </div>
 
             <p className="ai-summary">
-                Your energy is currently trending towards <span style={{ color: 'orange', fontWeight: '600' }}>High Pitta</span> (Heat). Schedule cooling activities.
+                {insights.aiSummary.text} <span style={{ color: insights.aiSummary.color, fontWeight: '600' }}>{insights.aiSummary.highlight}</span>{insights.aiSummary.suffix}
             </p>
 
             <div className="threshold-section">
@@ -50,17 +51,16 @@ export function AIPanel({ events }: Props) {
                 <div className="insight-card alert">
                     <div className="insight-icon alert-icon">!</div>
                     <div className="insight-content">
-                        <h5>Energy Clash Detected</h5>
-                        <p>Client call at 2pm coincides with your natural energy dip (Vata low).</p>
-                        <button className="btn-resolve">Reschedule Suggested</button>
+                        <h5>{insights.drainer.title}</h5>
+                        <p>{insights.drainer.subtext}</p>
                     </div>
                 </div>
 
                 <div className="insight-card positive">
                     <div className="insight-icon positive-icon">✓</div>
                     <div className="insight-content">
-                        <h5>Focus Window</h5>
-                        <p>Optimal focus time: 10am - 12pm. Use for deep work.</p>
+                        <h5>{insights.alignment.status}</h5>
+                        <p>{insights.alignment.subtext}</p>
                     </div>
                 </div>
             </div>
@@ -68,14 +68,12 @@ export function AIPanel({ events }: Props) {
             <div className="rituals-section">
                 <h4 className="section-label">RECOMMENDED RITUALS</h4>
                 <div className="rituals-grid">
-                    <div className="ritual-btn">
-                        <span className="ritual-icon">💧</span>
-                        Hydrate
-                    </div>
-                    <div className="ritual-btn">
-                        <span className="ritual-icon">🧘</span>
-                        Meditate
-                    </div>
+                    {insights.rituals.map((ritual, idx) => (
+                        <div key={idx} className="ritual-btn">
+                            <span className="ritual-icon">{ritual.icon}</span>
+                            {ritual.label}
+                        </div>
+                    ))}
                 </div>
             </div>
 

@@ -192,6 +192,40 @@ export const generateInsights = (rawEvents: any[], userDosha = 'Vata') => {
         if (percentage >= 75) aiRecText = 'Critical Kapha imbalance. Shock your system out of lethargy with cold splashes of water or Garshana (dry brushing).';
     }
 
+    let aiSummary = {
+        text: 'Your energy is currently balanced.',
+        color: '#10b981',
+        highlight: 'Sattva',
+        suffix: ''
+    };
+    let rituals = [
+        { icon: '💧', label: 'Hydrate' },
+        { icon: '🧘', label: 'Meditate' }
+    ];
+
+    if (userDosha === 'Vata') {
+        if (percentage > 50) {
+            aiSummary = { text: 'Your energy is currently trending towards ', highlight: 'High Vata', color: '#60a5fa', suffix: ' (Movement). Schedule grounding activities.' };
+            rituals = [{ icon: '🧘', label: 'Grounding' }, { icon: '🍵', label: 'Warm Tea' }];
+        } else {
+            aiSummary = { text: 'Your Vata energy is ', highlight: 'Stable', color: '#34d399', suffix: '. Keep maintaining rhythmic routines.' };
+        }
+    } else if (userDosha === 'Pitta') {
+        if (percentage > 50) {
+            aiSummary = { text: 'Your energy is currently trending towards ', highlight: 'High Pitta', color: '#f97316', suffix: ' (Heat). Schedule cooling activities.' };
+            rituals = [{ icon: '💧', label: 'Hydrate' }, { icon: '🌬️', label: 'Cooling Breath' }];
+        } else {
+            aiSummary = { text: 'Your Pitta energy is ', highlight: 'Focused', color: '#34d399', suffix: '. Excellent time for deep execution.' };
+        }
+    } else if (userDosha === 'Kapha') {
+        if (percentage > 50) {
+            aiSummary = { text: 'Your energy is currently trending towards ', highlight: 'High Kapha', color: '#a3e635', suffix: ' (Lethargy). Schedule stimulating activities.' };
+            rituals = [{ icon: '🏃', label: 'Move Body' }, { icon: '🔥', label: 'Warm Spices' }];
+        } else {
+            aiSummary = { text: 'Your Kapha energy is ', highlight: 'Grounded', color: '#34d399', suffix: '. Perfect foundation for steady work.' };
+        }
+    }
+
     return {
         alignment: {
             percentage: alignmentScore,
@@ -208,6 +242,8 @@ export const generateInsights = (rawEvents: any[], userDosha = 'Vata') => {
             title: aiRecTitle,
             text: aiRecText,
             buttonText: aiRecButtonText
-        }
+        },
+        aiSummary,
+        rituals
     };
 };
